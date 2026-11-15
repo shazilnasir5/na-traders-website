@@ -47,6 +47,14 @@ export const ArrowIcon = ({ className = "h-4 w-4" }: IconProps) => (
   </svg>
 );
 
+export const InstagramIcon = ({ className = "h-5 w-5" }: IconProps) => (
+  <svg viewBox="0 0 24 24" className={className} aria-hidden="true" fill="none" {...stroke}>
+    <rect x="3.5" y="3.5" width="17" height="17" rx="4.5" />
+    <circle cx="12" cy="12" r="4.25" />
+    <circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none" />
+  </svg>
+);
+
 export const MenuIcon = ({ className = "h-6 w-6" }: IconProps) => (
   <svg viewBox="0 0 24 24" className={className} {...stroke} strokeWidth={1.8} aria-hidden="true">
     <path d="M4 7h16M4 12h16M4 17h16" />

@@ -6,17 +6,22 @@
  */
 
 import heroImg from "@/assets/hero.jpg";
-import aboutImg from "@/assets/about.jpg";
+import productsImg from "@/assets/products.jpeg";
 import chocolateFillingImg from "@/assets/chocolate filling.jpg";
 import strawberryFillingImg from "@/assets/strawberry filling.jpg";
 import caramelSauceImg from "@/assets/caramel sauce.jpg";
 import redGlazedCherryImg from "@/assets/red glazed cherry.jpg";
 import khastaImg from "@/assets/khasta.jpg";
 import blackCherrySauceImg from "@/assets/black cherry sauce.jpg";
+import blackCherryBigImg from "@/assets/black cherry big.jpeg";
 import pineappleSauceImg from "@/assets/pineapple sauce.jpg";
+import pineappleBigImg from "@/assets/pineapple big.jpeg";
 import strawberrySauceImg from "@/assets/strawberry sauce.jpg";
+import strawberryBigImg from "@/assets/strawberry big.jpeg";
 import chocolateFudgeImg from "@/assets/chocolate fudge.jpg";
 import dryMixFruitImg from "@/assets/dry mix fruit.jpg";
+import blackCurrantImg from "@/assets/black currant.jpg";
+import blackCurrantBigImg from "@/assets/black currant big.jpeg";
 
 /* ---------- Business details ---------- */
 export const business = {
@@ -36,6 +41,8 @@ export const business = {
   phone: "+92 3435395040 / +92 3275753676",
   phoneNumbers: ["+92 3435395040", "+92 3275753676"],
   whatsappNumbers: ["+92 3435395040", "+92 3275753676"],
+  instagram: "na_traders00",
+  instagramLink: "https://instagram.com/na_traders00",
   email: "nasirghazi14@gmail.com",
   address: "Chah Sultan, Rawalpindi",
   hours: "",
@@ -69,8 +76,8 @@ export const hero = {
 /* ---------- About ---------- */
 export const about = {
   heading: "About N.A Traders",
-  image: aboutImg,
-  imageAlt: "Glazed cherries, fruit purees and sliced sauces arranged on a kitchen counter",
+  image: productsImg,
+  imageAlt: "Products collage featuring sauces, cherries and fruit products",
   // Replace these paragraphs with your real company background.
   paragraphs: [
     "N.A Traders deals in food products including topping sauces, glazed cherry, Khasta Gari and fruit purees.",
@@ -91,6 +98,7 @@ export type Product = {
   note?: string;
   image: string;
   imageAlt: string;
+  images?: string[];
 };
 
 export const productsSection = {
@@ -103,7 +111,7 @@ export const products: Product[] = [
     id: "chocolate-sauce",
     name: "Chocolate Sauce",
     description: "Smooth, rich chocolate sauce for desserts, cakes, drizzles and ice cream toppings.",
-    price: "1,200",
+    price: "1,250",
     unit: "1300ml bottle",
     image: chocolateFillingImg,
     imageAlt: "Chocolate filling in a bottle for toppings and desserts",
@@ -112,7 +120,7 @@ export const products: Product[] = [
     id: "strawberry-sauce",
     name: "Strawberry Sauce",
     description: "Sweet strawberry sauce with a vibrant fruit flavour for desserts, pastries and shakes.",
-    price: "1,200",
+    price: "1,150",
     unit: "1300ml bottle",
     image: strawberryFillingImg,
     imageAlt: "Strawberry filling in a bottle for desserts and toppings",
@@ -121,7 +129,7 @@ export const products: Product[] = [
     id: "caramel-sauce",
     name: "Caramel Sauce",
     description: "Golden caramel sauce for desserts, waffles, cakes and indulgent drizzles.",
-    price: "1,200",
+    price: "1,150",
     unit: "1300ml bottle",
     image: caramelSauceImg,
     imageAlt: "Caramel sauce in a bottle for desserts and toppings",
@@ -138,7 +146,7 @@ export const products: Product[] = [
   },
   {
     id: "khasta-gari",
-    name: "Apricot Seed (Khasta)",
+    name: "Apricot Kernel (Khasta)",
     description: "Crisp, flaky and delicious, a traditional savoury bite for any occasion.",
     price: "1,600",
     unit: "per kg",
@@ -147,33 +155,32 @@ export const products: Product[] = [
   },
   {
     id: "black-cherry-sauce",
-    name: "Black Cherry Sauce",
+    name: "Black Cherry Filling",
     description: "Rich black cherry flavour for desserts, pastries, smoothies and drizzles.",
     price: "1,200",
     unit: "per 900 gm",
-    note: "12 pieces/carton",
     image: blackCherrySauceImg,
     imageAlt: "Black cherry sauce in a pack for desserts and beverages",
+    images: [blackCherrySauceImg, blackCherryBigImg],
   },
   {
     id: "chocolate-fudge-pack",
-    name: "Chocolate Fudge",
+    name: "Chocolate Fudge Filling",
     description: "Velvety chocolate fudge for cakes, brownies and indulgent dessert finishes.",
-    price: "1,200",
+    price: "1,300",
     unit: "per 900 gm",
-    note: "12 pieces/carton",
     image: chocolateFudgeImg,
     imageAlt: "Chocolate fudge in a pack for dessert toppings and fillings",
   },
   {
     id: "pineapple-sauce-pack",
-    name: "Pineapple Sauce",
+    name: "Pineapple Filling",
     description: "Sunny pineapple flavour for toppings, desserts, pastries and drinks.",
-    price: "1,200",
+    price: "1,550",
     unit: "per 900 gm",
-    note: "12 pieces/carton",
     image: pineappleSauceImg,
     imageAlt: "Pineapple sauce in a pack for desserts and beverages",
+    images: [pineappleSauceImg, pineappleBigImg],
   },
   {
     id: "strawberry-sauce-pack",
@@ -181,19 +188,29 @@ export const products: Product[] = [
     description: "Sweet strawberry flavour for desserts, pastries, shakes and cake finishes.",
     price: "1,200",
     unit: "per 900 gm",
-    note: "12 pieces/carton",
     image: strawberrySauceImg,
     imageAlt: "Strawberry sauce in a pack for desserts and toppings",
+    images: [strawberrySauceImg, strawberryBigImg],
   },
   {
     id: "dry-mix-fruit",
     name: "Dry Mix Fruit",
     description: "A premium blend of dried fruits for snacking, desserts and festive mixes.",
-    price: "1,600",
+    price: "1,550",
     unit: "per kg",
-    note: "14 kg bucket: Rs. 22,400",
+    note: "Available in 12 kg bucket",
     image: dryMixFruitImg,
     imageAlt: "Dry mix fruit product in a bucket packaging",
+  },
+  {
+    id: "black-currant-filling",
+    name: "Black Currant Filling",
+    description: "Distinct black currant flavour for rich fillings, pastries and indulgent dessert finishes.",
+    price: "1,600",
+    unit: "per 900 gm",
+    image: blackCurrantImg,
+    imageAlt: "Black currant filling product in packaging",
+    images: [blackCurrantImg, blackCurrantBigImg],
   },
 ];
 

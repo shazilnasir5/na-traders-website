@@ -1,24 +1,87 @@
 import { formatPrice, productOrderLink, products, productsSection, type Product } from "@/config/siteConfig";
+import { useRef, useState } from "react";
 import { Reveal } from "./Reveal";
 import { WhatsAppIcon } from "./Icons";
 
 function ProductCard({ product, index }: { product: Product; index: number }) {
+  const galleryImages = product.images && product.images.length > 0 ? product.images : [product.image];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+
+  const showGalleryControls = galleryImages.length > 1;
+  const prevImage = () => setCurrentImageIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
+  const nextImage = () => setCurrentImageIndex((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1));
+
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    touchStartX.current = event.touches[0]?.clientX ?? null;
+  };
+
+  const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+    const endX = event.changedTouches[0]?.clientX ?? null;
+    if (touchStartX.current === null || endX === null) return;
+
+    const delta = touchStartX.current - endX;
+    if (delta > 40) nextImage();
+    if (delta < -40) prevImage();
+    touchStartX.current = null;
+  };
+
   return (
     <Reveal as="li" delay={index * 90} className="h-full">
       <article className="group flex h-full flex-col overflow-hidden rounded-md border border-burgundy/10 bg-white shadow-[0_1px_2px_rgba(103,47,56,0.05)] transition-all duration-500 hover:-translate-y-1.5 hover:border-rose/50 hover:shadow-[0_24px_48px_-24px_rgba(103,47,56,0.35)]">
         <div className="relative aspect-square overflow-hidden bg-blush">
-          <img
-            src={product.image}
-            alt={product.imageAlt}
-            width={900}
-            height={900}
-            loading="lazy"
-            decoding="async"
-            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-          />
-          <span className="absolute left-4 top-4 rounded-sm bg-cream/95 px-2.5 py-1 text-[0.7rem] font-bold tabular-nums tracking-[0.2em] text-burgundy">
-            0{index + 1}
-          </span>
+          <div
+            className="flex h-full w-full touch-pan-y transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
+            {galleryImages.map((image, imageIndex) => (
+              <img
+                key={`${product.id}-${imageIndex}`}
+                src={image}
+                alt={product.imageAlt}
+                width={900}
+                height={900}
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full shrink-0 object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+            ))}
+          </div>
+
+          {showGalleryControls ? (
+            <>
+              <button
+                type="button"
+                aria-label={`Previous image of ${product.name}`}
+                onClick={prevImage}
+                className="absolute left-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-lg font-bold text-burgundy shadow-sm transition hover:bg-white"
+              >
+                ‹
+              </button>
+              <button
+                type="button"
+                aria-label={`Next image of ${product.name}`}
+                onClick={nextImage}
+                className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-lg font-bold text-burgundy shadow-sm transition hover:bg-white"
+              >
+                ›
+              </button>
+              <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
+                {galleryImages.map((_, imageIndex) => (
+                  <button
+                    key={`${product.id}-dot-${imageIndex}`}
+                    type="button"
+                    aria-label={`Show image ${imageIndex + 1} for ${product.name}`}
+                    onClick={() => setCurrentImageIndex(imageIndex)}
+                    className={`h-2.5 w-2.5 rounded-full transition ${imageIndex === currentImageIndex ? "bg-burgundy" : "bg-white/80"}`}
+                  />
+                ))}
+              </div>
+            </>
+          ) : null}
+
         </div>
 
         <div className="flex flex-1 flex-col p-3 sm:p-6">

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { business, generalWhatsappLink, placeholders } from "@/config/siteConfig";
-import { ClockIcon, MailIcon, PhoneIcon, PinIcon, WhatsAppIcon } from "./Icons";
+import { ClockIcon, InstagramIcon, MailIcon, PhoneIcon, PinIcon, WhatsAppIcon } from "./Icons";
 import { Reveal } from "./Reveal";
 
 type RowProps = {
@@ -84,6 +84,14 @@ export function Contact() {
                   external
                 />
                 <ContactRow
+                  icon={<InstagramIcon />}
+                  label="Instagram"
+                  value={`@${business.instagram}`}
+                  placeholder="@na_traders00"
+                  href={business.instagramLink || `https://instagram.com/${business.instagram}`}
+                  external
+                />
+                <ContactRow
                   icon={<MailIcon />}
                   label="Email"
                   value={business.email}
@@ -106,15 +114,26 @@ export function Contact() {
                 )}
               </ul>
 
-              <a
-                href={generalWhatsappLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-9 flex w-full items-center justify-center gap-2.5 rounded-md bg-burgundy px-6 py-4 text-sm font-semibold tracking-wide text-cream transition-colors duration-300 hover:bg-wa hover:text-charcoal"
-              >
-                <WhatsAppIcon className="h-5 w-5" />
-                Chat With Us on WhatsApp
-              </a>
+              <div className="mt-9 grid gap-3 sm:grid-cols-2">
+                <a
+                  href={generalWhatsappLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex w-full items-center justify-center gap-2.5 rounded-md bg-burgundy px-6 py-4 text-sm font-semibold tracking-wide text-cream transition-colors duration-300 hover:bg-wa hover:text-charcoal"
+                >
+                  <WhatsAppIcon className="h-5 w-5" />
+                  WhatsApp
+                </a>
+                <a
+                  href={business.instagramLink || `https://instagram.com/${business.instagram}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex w-full items-center justify-center gap-2.5 rounded-md border border-burgundy/20 bg-cream px-6 py-4 text-sm font-semibold tracking-wide text-burgundy transition-colors duration-300 hover:bg-blush"
+                >
+                  <InstagramIcon className="h-5 w-5" />
+                  Instagram
+                </a>
+              </div>
             </div>
           </Reveal>
 
